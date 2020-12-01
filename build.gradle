@@ -22,7 +22,7 @@ apply plugin: 'org.springframework.boot'
 // springboot 의존성을 관리해주는 플러그인
 apply plugin: 'io.spring.dependency-management'
 
-group 'com.max.board'
+                              group 'com.max.board'
 version '1.0-SNAPSHOT'
 
 repositories {
