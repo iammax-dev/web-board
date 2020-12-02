@@ -22,7 +22,7 @@ apply plugin: 'org.springframework.boot'
 // springboot 의존성을 관리해주는 플러그인
 apply plugin: 'io.spring.dependency-management'
 
-                              group 'com.max.board'
+group 'com.max.board'
 version '1.0-SNAPSHOT'
 
 repositories {
@@ -33,5 +33,9 @@ repositories {
 dependencies {
     compile('org.springframework.boot:spring-boot-starter-web')
     compile('org.projectlombok:lombok')
+    // Spring Data Jpa 추상화 라이브러리
+    compile('org.springframework.boot:spring-boot-starter-data-jpa')
+    // 인메모리 관계형 데이터베이스, 설치X
+    compile('com.h2database:h2')
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }
