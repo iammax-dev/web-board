@@ -1,5 +1,6 @@
 package com.max.board.web.domain.posts;
 
+import com.max.board.web.domain.BaseTimeEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,7 +9,7 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor // 기본 생성자 자동 추가, public Posts() {} 와 같은 효과
 @Entity // 테이블과 링크될 클래스임을 명시
-public class Posts { // 실제 DB의 테이블과 매칭될 클래스
+public class Posts extends BaseTimeEntity { // 실제 DB의 테이블과 매칭될 클래스
 
     @Id // 해당 테이블의 PK필드
     @GeneratedValue(strategy = GenerationType.IDENTITY)

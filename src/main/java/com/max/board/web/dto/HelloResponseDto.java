@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor // 선언된 모든 final 필드가 포함된 생성자를 생성 (final 없으면 생성X)
 public class HelloResponseDto {
 
-    private final String name;
-    private final int amount;
+//    private final String name;
+//    private final int amount;
 
 }

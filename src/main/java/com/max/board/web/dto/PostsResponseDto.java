@@ -3,8 +3,6 @@ package com.max.board.web.dto;
 import com.max.board.web.domain.posts.Posts;
 import lombok.Getter;
 
-import java.time.LocalDateTime;
-
 @Getter
 public class PostsResponseDto {
 
@@ -14,11 +12,9 @@ public class PostsResponseDto {
     private String author;
 
     public PostsResponseDto(Posts entity) {
-
-        this.id           = entity.getId();
-        this.title        = entity.getTitle();
-        this.content      = entity.getContent();
-        this.author       = entity.getAuthor();
+        this.id      = entity.getId();
+        this.title   = entity.getTitle();
+        this.content = entity.getContent();
+        this.author  = entity.getAuthor();
     }
-
 }
