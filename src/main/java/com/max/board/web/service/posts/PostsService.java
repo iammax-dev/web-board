@@ -1,6 +1,6 @@
 package com.max.board.web.service.posts;
 
-import com.max.board.web.controller.PostsListResponseDto;
+import com.max.board.web.dto.PostsListResponseDto;
 import com.max.board.web.domain.posts.Posts;
 import com.max.board.web.domain.posts.PostsRepository;
 import com.max.board.web.dto.PostsResponseDto;

@@ -39,5 +39,9 @@ dependencies {
     compile('com.h2database:h2')
     // 머스태치 추가
     compile('org.springframework.boot:spring-boot-starter-mustache')
+    // Mariadb
+    compile('org.mariadb.jdbc:mariadb-java-client')
+    // Use MySQL Connector-J
+    compile 'mysql:mysql-connector-java'
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }
