@@ -6,12 +6,14 @@
     <div class="row">
         <div class="col-md-6">
             <a href="/posts/save" role="button" class="btn btn-primary">글 등록</a>
+            <!-- memberName 객체 없으면 로그인 -->
+            {{^memberName}}
+                <a href="/oauth2/authorization/google" role="button" class="btn btn-secondary active">Google Login</a>
+            {{/memberName}}
+            <!-- memberName 객체 있으면 로그아웃 -->
             {{#memberName}}
                 Logged in as : <span id="user">{{memberName}}</span>
                 <a href="/logout" role="button" class="btn btn-info active">Log Out</a>
-            {{/memberName}}
-            {{^memberName}}
-                <a href="/oauth2/authorization/google" role="button" class="btn btn-secondary active">Google Login</a>
             {{/memberName}}
         </div>
     </div>

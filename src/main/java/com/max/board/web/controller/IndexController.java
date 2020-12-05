@@ -41,7 +41,7 @@ public class IndexController {
     @GetMapping("/posts/save")
     public String postsSave(Model model, @LoginUser SessionUser user) {
         model.addAttribute("memberName", user.getName());
-        return "posts-save";
+        return "postCreate";
     }
 
     @GetMapping("/posts/update/{id}")

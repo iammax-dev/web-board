@@ -3,3 +3,7 @@
 .gradle
 .idea
 application-oauth.properties
+
+
+# Java class files
+*.class
