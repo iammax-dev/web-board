@@ -38,12 +38,15 @@ dependencies {
     // 인메모리 관계형 데이터베이스, 설치X
     compile('com.h2database:h2')
     // 머스태치 추가
-    compile('org.springframework.boot:spring-boot-starter-mustache')
+    // compile('org.springframework.boot:spring-boot-starter-mustache')
     // Mariadb
     compile('org.mariadb.jdbc:mariadb-java-client')
     // Use MySQL Connector-J
     compile 'mysql:mysql-connector-java'
     // 클라이언트 입장에서 소셜기능 구현시 필요한 의존성
     compile('org.springframework.boot:spring-boot-starter-oauth2-client')
+    // thymeleaf
+    compile('org.springframework.boot:spring-boot-starter-thymeleaf')
+
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }

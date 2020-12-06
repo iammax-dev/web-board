@@ -34,22 +34,37 @@ public class IndexController {
             model.addAttribute("memberName", user.getName());
         }
 
-        // 머스태치 스타터때문에 앞 경로(src/main/resources/templates)와 뒷경로(.mustache) 추가됨
+        // 머스태치 스타터때문에 앞 경로(src/main/resources/templates)와 뒷경로(.mustache) 추가됨 -> thymeleaf 로 변경
         return "index";
+    }
+
+    @GetMapping("/posts/view/{id}")
+    public String postsView(Model model, @LoginUser SessionUser user, @PathVariable Long id) {
+
+        model.addAttribute("userId", user.getId());
+
+        PostsResponseDto dto = postsService.findById(id);
+        model.addAttribute("post", dto);
+
+        return "postsView";
     }
 
     @GetMapping("/posts/save")
     public String postsSave(Model model, @LoginUser SessionUser user) {
         model.addAttribute("memberName", user.getName());
+        model.addAttribute("userId", user.getId());
         return "postCreate";
     }
 
     @GetMapping("/posts/update/{id}")
-    public String postsUpdate(@PathVariable Long id, Model model) {
+    public String postsUpdate(Model model, @LoginUser SessionUser user, @PathVariable Long id) {
+
+        model.addAttribute("userId", user.getId());
+
         PostsResponseDto dto = postsService.findById(id);
         model.addAttribute("post", dto);
 
-        return "posts-update";
+        return "postCreate";
     }
 
 }

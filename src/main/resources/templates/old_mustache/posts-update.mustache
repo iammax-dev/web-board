@@ -1,0 +1,60 @@
+{{>layout/header}}
+<h1>게시글 상세보기</h1>
+<!--<div class="col-md-12">-->
+<!--    <div class="col-md-4">-->
+<!--        <form>-->
+<!--            <div class="form-group">-->
+<!--                <label for="id">글 번호</label>-->
+<!--                <input type="text" class="form-control" id="id" value="{{post.id}}" readonly>-->
+<!--            </div>-->
+<!--            <div class="form-group">-->
+<!--                <label for="title">제목</label>-->
+<!--                <input type="text" class="form-control" id="title" value="{{post.title}}">-->
+<!--            </div>-->
+<!--            <div class="form-group">-->
+<!--                <label for="author">작성자</label>-->
+<!--                <input type="text" class="form-control" id="author" value="{{post.author}}" readonly>-->
+<!--            </div>-->
+<!--            <div class="form-group">-->
+<!--                <label for="content">내용</label>-->
+<!--                <textarea class="form-control" id="content">{{post.content}}</textarea>-->
+<!--            </div>-->
+<!--        </form>-->
+<!--        <a href="/" role="button" class="btn btn-secondary">취소</a>-->
+<!--        <button type="button" class="btn btn-primary" id="btn-update">수정 완료</button>-->
+<!--        <button type="button" class="btn btn-danger" id="btn-delete">삭제</button>-->
+<!--    </div>-->
+<!--</div>-->
+
+<div class="form-group container-md">
+    <form id="dataForm">
+        <input type="hidden" id="user_id" value="{{userId}}">
+        <input type="hidden" id="id" value="{{post.id}}">
+        <div class="form-group">
+            <label class="col-form-label" for="title">제목</label>
+            <input type="text" class="form-control" id="title" value="{{post.title}}">
+            <label class="col-form-label" for="author">작성자</label>
+            <input type="text" class="form-control" id="author" value="{{post.author}}" readonly>
+        </div>
+        <textarea class="form-control" id="content" rows="15">s{{{post.content}}}</textarea>
+        <div align="right">
+            <!-- memberName 객체 없으면 로그인 -->
+            {{^memberName}}
+                <a href="/oauth2/authorization/google" role="button" class="btn btn-secondary active">Google Login</a>
+            {{/memberName}}
+            <!-- memberName 객체 있으면 로그아웃 -->
+            {{#memberName}}
+                Logged in as : <span id="user">{{memberName}}</span>
+                <a href="/logout" role="button" class="btn btn-info active">Log Out</a>
+            {{/memberName}}
+
+
+
+            <button type="button" class="btn btn-outline-success btn-sm" id="btn-submit">수정 완료</button>
+            <button type="button" class="btn btn-outline-secondary btn-sm" id="btn-cancel">취소</button>
+            <button type="button" class="btn btn-outline-danger btn-sm" id="btn-delete">삭제</button>
+        </div>
+    </form>
+</div>
+
+{{>layout/footer}}
