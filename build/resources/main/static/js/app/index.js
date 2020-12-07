@@ -1,55 +1,44 @@
-var main = {
-    init : function(){
-        var _this = this;
+$(document).ready(function(){
+    
+//	$("#search").click(function() {
+//		fn_search();
+//	});
+	
+	$("#postCreate").click(function() {
+		document.location.href = "/posts/save";
+	});
 
-        $('#btn-submit').on('click', function() {
-            _this.update();
-        });
+    $("#search").on("click", function(event){
+        self.location = "/search?selectSearch=" + $("#selectSearch option:selected").val()
+            + "&keyword=" + $('#keyword').val()
+    });
 
-        $('#btn-delete').on('click', function() {
-            _this.delete();
-        });
+});
 
-        $("#btn-cancel").click(function() {
-            document.location.href = "/";
-        });
-    },
-    update : function() {
-        var data = {
-            title   : $('#title').val(),
-            content : $('#content').val()
-        };
 
-        var id = $('#id').val();
-
-        $.ajax({
-            type        : 'PUT',
-            url         : '/api/v1/posts/' + id,
-            dataType    : 'json',
-            contentType : 'application/json; charset=utf-8',
-            data        : JSON.stringify(data)
-        }).done(function () {
-            alert("글이 수정 되었습니다.");
-            window.location.href = '/';
-        }).fail(function (error) {
-            alert(JSON.stringify(error));
-        });
-    },
-    delete : function() {
-        var id = $('#id').val();
-
-        $.ajax({
-            type        : 'DELETE',
-            url         : '/api/v1/posts/' + id,
-            dataType    : 'json',
-            contentType : 'application/json; charset=utf-8'
-        }).done(function () {
-            alert("글이 삭제 되었습니다.");
-            window.location.href = '/';
-        }).fail(function (error) {
-            alert(JSON.stringify(error));
-        });
-    }
-};
-
-main.init();
+//function fn_search() {
+//
+//    var selectSearch = $("#selectSearch option:selected").val();
+//    var keyword      = $('#keyword').val();
+//    var data = {
+//        selectSearch : selectSearch,
+//        keyword      : keyword
+//    };
+//
+//console.log(data)
+//jQuery.ajaxSettings.traditional = true;
+//    $.ajax({
+//        type        : 'GET',
+//        url         : '/search',
+////        dataType    : 'json',
+////        contentType : 'application/json; charset=utf-8',
+//        data        : data,
+//        success: function () {
+//            alert("검색성공.");
+//            document.location.href = "/search?selectSearch=" selectSearch + "&keyword=" + keyword
+//        },
+//        error: function (error) {
+//            alert(JSON.stringify(error));
+//        }
+//    });
+//}

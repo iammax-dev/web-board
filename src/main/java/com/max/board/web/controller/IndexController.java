@@ -8,8 +8,7 @@ import com.max.board.web.service.posts.PostsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 
@@ -38,10 +37,20 @@ public class IndexController {
         return "index";
     }
 
+    @GetMapping("/search")
+    public String searchIndex(Model model, @LoginUser SessionUser user, @RequestParam("selectSearch") String selectSearch, @RequestParam("keyword") String keyword) {
+        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> searchIndex 진입 ");
+        model.addAttribute("memberName", user.getName());
+        model.addAttribute("posts", postsService.findByKeyword(selectSearch, keyword));
+
+        return "index";
+    }
+
     @GetMapping("/posts/view/{id}")
     public String postsView(Model model, @LoginUser SessionUser user, @PathVariable Long id) {
 
         model.addAttribute("userId", user.getId());
+        model.addAttribute("memberName", user.getName());
 
         PostsResponseDto dto = postsService.findById(id);
         model.addAttribute("post", dto);

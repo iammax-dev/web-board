@@ -9,7 +9,6 @@
 <div class="col-md-12">
     <!-- 로그인 기능 영역 -->
     <div class="form-inline">
-        <a href="/posts/save" role="button" class="btn btn-primary">글 등록</a>
         <a th:if="${memberName} == null" href="/oauth2/authorization/google" role="button" class="btn btn-secondary active">Google Login</a>
         <span id="user" data-th-text="${memberName}">사용자</span>
         <a th:unless="${memberName} == null" href="/logout" role="button" class="btn btn-info active">Log Out</a>
@@ -18,15 +17,15 @@
 
     <!-- 검색창 -->
     <div class="form-inline">
-        <select class="form-control-sm" id="searchType">
+        <select class="form-control-sm" id="selectSearch">
             <option value=>선택</option>
             <option value=title>제목</option>
             <option value=name>이름</option>
             <option value=contents>내용</option>
         </select>
-        <input type="text" class="form-control-sm" name="keyword" id="keyword" style="width: 20%;">
+        <input type="text" class="form-control-sm" id="keyword" style="width: 20%;">
         <button class="btn btn-outline-primary btn-sm" id="search">검색</button>
-        <button class="btn btn-outline-warning btn-sm" id="insert">글 작성</button>
+        <button class="btn btn-outline-warning btn-sm" id="postCreate">글 작성</button>
     </div>
 
     <!-- 목록 출력 영역 -->
@@ -44,7 +43,7 @@
             <th scope="col">No.</th>
             <th scope="col">제목</th>
             <th scope="col">작성자</th>
-            <th scope="col">최종 수정일</th>
+            <th scope="col">작성일</th>
         </tr>
         </thead>
         <tbody id="tbody">
@@ -52,8 +51,8 @@
             <th><input type=checkbox></th>
             <th scope="row" class="text-center" th:text="${list.id}"></th>
             <td><a th:href="@{/posts/view/{id} (id=${list.id})}" th:text="${list.title}"></a></td>
-            <td th:text="${list.author}"></td>
-            <td class="text-center" th:text="${list.modifiedDate}"></td>
+            <td class="text-center" th:text="${list.author}"></td>
+            <td class="text-center" th:text="${list.createDate}"></td>
         </tr>
         </tbody>
     </table>

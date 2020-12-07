@@ -11,6 +11,7 @@ public class PostsListResponseDto {
     private Long id;
     private String title;
     private String author;
+    private LocalDateTime createDate;
     private LocalDateTime modifiedDate;
 
     public PostsListResponseDto(Posts entity) {
@@ -19,5 +20,6 @@ public class PostsListResponseDto {
         this.title        = entity.getTitle();
         this.author       = entity.getAuthor();
         this.modifiedDate = entity.getModifiedDate();
+        this.createDate   = entity.getCreateDate();
     }
 }

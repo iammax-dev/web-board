@@ -44,4 +44,14 @@ public class Posts extends BaseTimeEntity { // 실제 DB의 테이블과 매칭�
         this.content = content;
     }
 
+    @Override
+    public String toString() {
+        return "Posts{" +
+                "id=" + id +
+                ", user=" + user +
+                ", author='" + author + '\'' +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                '}';
+    }
 }

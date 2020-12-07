@@ -26,10 +26,21 @@ public class PostsService {
     }
 
     @Transactional(readOnly = true)
+    public List<PostsListResponseDto> findByKeyword(String selectSearch, String keyword) {
+
+        if (selectSearch.equals("title")) {
+            return postsRepository.findByTitleContaining(keyword).stream().map(PostsListResponseDto::new).collect(Collectors.toList());
+        } else if (selectSearch.equals("name")) {
+            return postsRepository.findByAuthorContaining(keyword).stream().map(PostsListResponseDto::new).collect(Collectors.toList());
+        } else {
+            return postsRepository.findByContentContaining(keyword).stream().map(PostsListResponseDto::new).collect(Collectors.toList());
+        }
+    }
+
+    @Transactional(readOnly = true)
     public List<PostsListResponseDto> findAllDesc() {
 
         return postsRepository.findAllDesc().stream().map(PostsListResponseDto::new).collect(Collectors.toList());
-
     }
 
     @Transactional
