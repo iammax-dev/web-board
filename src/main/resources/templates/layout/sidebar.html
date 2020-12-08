@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="utf-8">
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>sidebar</title>
+</head>
+
+<body>
+    <div class="nav-area" th:fragment="sidebar" id="sidebar_nav_menu">
+        <nav class="menu">
+            <ul>
+                <li><a th:href="@{/dashboard}">DashBoard</a></li>
+                <li>
+                    <button class="opener">메뉴 1</button>
+                    <ul>
+                        <li><a th:href="@{/}">상세메뉴1</a></li>
+                        <li><a th:href="@{/}">상세메뉴2</a></li>
+                        <li><a th:href="@{/}">상세메뉴3</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <button class="opener">메뉴 2</button>
+                    <ul>
+                        <li><a th:href="@{/}">상세메뉴1</a></li>
+                        <li><a th:href="@{/}">상세메뉴2</a></li>
+                        <li><a th:href="@{/}">상세메뉴3</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <button class="opener">메뉴 3</button>
+                    <ul>
+                        <li><a th:href="@{/}">상세메뉴1</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <button class="opener">메뉴 4</button>
+                    <ul>
+                        <li><a th:href="@{/}">상세메뉴1</a></li>
+                        <li><a th:href="@{/}">상세메뉴3</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Footer -->
+        <footer class="footer" id="sidebarUserDiv" style="cursor:pointer;">
+            <p id="userInfo"></p>
+        </footer>
+    </div>
+</body>
+</html>

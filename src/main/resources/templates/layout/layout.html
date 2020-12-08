@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" lang="ko">
+<head th:replace="~{layout/header :: header}">
+    <title>Header</title>
+</head>
+
+<body>
+<!-- Wrapper -->
+<div class="wrapper">
+    <div th:replace="~{layout/sidebar :: sidebar}"></div>
+
+    <!-- Content -->
+    <div class="cont-area">
+        <div th:replace="~{layout/topbar :: topbar}"></div>
+        <div layout:fragment="content"></div>
+    </div>
+
+</div><!-- Wrapper -->
+</body>
+</html>

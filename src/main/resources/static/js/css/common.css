@@ -1,0 +1,38 @@
+@charset "utf-8";
+body {position:relative; min-width:1000px; }
+
+/*****************************************
+   0. 프레임 영역 
+*****************************************/
+
+/* 프레임 기본구조 */
+.wrapper {position:relative; display:flex; min-height:100%;height:100%;align-content:stretch;}
+.wrapper {overflow:hidden; }
+.nav-area {position:relative; width:312px; padding:35px 36px; box-sizing:border-box; flex:0 0 auto;  transition:margin-left .2s ease-out; z-index:999; }
+.nav-area.menu-hidden {margin-left:-312px;}
+.cont-area {flex-grow: 1; display:flex; flex-direction: column;}
+
+@media all and (max-width:1280px) {
+    .nav-area {position:absolute; left:0; top:0; bottom:0; margin-left:0;}
+
+}
+
+/*.nav-area */
+.nav-area {background-color:#380036; overflow-y:auto;}
+.nav-area .logo {font-size:28px; font-weight:700; margin-bottom:26px; display:flex; align-items:center;padding-left:30px;}
+.nav-area .logo img {margin-right:15px; height:33px;}
+
+.src-area {color: white; background-color: #0cbaba; background-image: linear-gradient(315deg, #0cbaba 0%, #380036 74%); overflow-y:auto;}
+
+
+
+/*.nav-area - Menu */
+.menu {min-width:240px; /* 네비영역에 스크롤이 생길 경우 네비영역이 쪼그라드는 것 방지*/}
+.menu ul {color: #ffffff; text-transform: none; font-size:16px;}
+.menu ul a, .menu ul button { color: inherit; cursor: pointer; display: block; padding: 16px 0; transition: color 0.2s ease-in-out; text-decoration: none; position: relative; width:100%; background:transparent; text-align:left;border:0; font-size:15px}
+.menu ul a:hover, .menu ul button:hover,
+.menu ul a:focus, .menu ul button:focus
+{color: #ffd800; outline:0}
+
+
+.temph1 {color: #ffffff;}
