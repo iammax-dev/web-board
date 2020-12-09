@@ -2,15 +2,20 @@ package com.max.board.web.controller;
 
 import com.max.board.web.config.auth.LoginUser;
 import com.max.board.web.config.auth.dto.SessionUser;
-import com.max.board.web.domain.user.User;
+import com.max.board.web.domain.posts.Posts;
+import com.max.board.web.dto.PostsListResponseDto;
 import com.max.board.web.dto.PostsResponseDto;
 import com.max.board.web.service.posts.PostsService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.data.domain.Pageable;
 
-import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Controller
@@ -21,17 +26,15 @@ public class IndexController {
 //    private final HttpSession  httpSession;
 
     @GetMapping("/")
-    public String index(Model model, @LoginUser SessionUser user) {
-        // postService 의 전체조회 메소드로 전체 목록 불러옴
-        model.addAttribute("posts", postsService.findAllDesc());
-        
-        // 로그인 된 사용자 정보를 가져옴
-        // SessionUser user = (SessionUser) httpSession.getAttribute("user");
-
+    public String index(Model model, @LoginUser SessionUser user, @PageableDefault Pageable pageable) {
         if (user != null) {
             // 사용자 정보가 있다면, 이름을 memberName 라는 attribute 로 추가해 view 로 던져줌
             model.addAttribute("memberName", user.getName());
         }
+
+        Page<Posts> postList = postsService.findPageCount(pageable);
+        model.addAttribute("pageList", postList);
+        model.addAttribute("posts", postList.getContent());
 
         // 머스태치 스타터때문에 앞 경로(src/main/resources/templates)와 뒷경로(.mustache) 추가됨 -> thymeleaf 로 변경
         return "index";
@@ -39,7 +42,6 @@ public class IndexController {
 
     @GetMapping("/search")
     public String searchIndex(Model model, @LoginUser SessionUser user, @RequestParam("selectSearch") String selectSearch, @RequestParam("keyword") String keyword) {
-        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> searchIndex 진입 ");
         model.addAttribute("memberName", user.getName());
         model.addAttribute("posts", postsService.findByKeyword(selectSearch, keyword));
 

@@ -7,6 +7,10 @@ import com.max.board.web.dto.PostsResponseDto;
 import com.max.board.web.dto.PostsSaveRequestDto;
 import com.max.board.web.dto.PostsUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,10 +41,11 @@ public class PostsService {
         }
     }
 
-    @Transactional(readOnly = true)
-    public List<PostsListResponseDto> findAllDesc() {
+    public Page<Posts> findPageCount(Pageable pageable) {
+        int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1); // page는 index 처럼 0부터 시작
+        pageable = PageRequest.of(page, 10, new Sort(Sort.Direction.DESC, "id"));
 
-        return postsRepository.findAllDesc().stream().map(PostsListResponseDto::new).collect(Collectors.toList());
+        return postsRepository.findAll(pageable);
     }
 
     @Transactional
@@ -64,5 +69,6 @@ public class PostsService {
         postsRepository.delete(posts);
 
     }
+
 
 }
