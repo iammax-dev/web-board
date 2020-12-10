@@ -1,8 +1,8 @@
 package com.max.board.web.controller;
 
-import com.max.board.web.dto.PostsResponseDto;
-import com.max.board.web.dto.PostsSaveRequestDto;
-import com.max.board.web.dto.PostsUpdateRequestDto;
+import com.max.board.web.dto.post.PostsResponseDto;
+import com.max.board.web.dto.post.PostsSaveRequestDto;
+import com.max.board.web.dto.post.PostsUpdateRequestDto;
 import com.max.board.web.service.posts.PostsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;

@@ -18,8 +18,14 @@ $(document).ready(function(){
         document.location.href = "/posts/update/" + $('#postId').val();
     });
 
+    // 목록
     $("#btn-cancel").click(function() {
         document.location.href = "/";
+    });
+
+    // 댓글 저장
+    $("#replySubmit").click(function() {
+        fn_replySubmit();
     });
 
 });
@@ -38,4 +44,38 @@ function fn_delete() {
     }).fail(function (error) {
         alert(JSON.stringify(error));
     });
+}
+
+function fn_replySubmit() {
+
+	var replyName = $("#replyName").val();
+	var replyContents = $("#replyContents").val();
+
+    if (replyContents != null && replyContents != "") {
+
+       var data = {
+            post_id       : $("#postId").val(),
+            replyAuthor  : replyName,
+            replyContent : replyContents
+        };
+
+    console.log(data)
+
+        $.ajax({
+            type        : 'POST',
+            url         : '/reply',
+            dataType    : 'json',
+            contentType : 'application/json; charset=utf-8',
+            data        : JSON.stringify(data)
+        }).done(function () {
+            alert("댓글이 등록 되었습니다.");
+            location.reload();
+        }).fail(function (error) {
+            alert(JSON.stringify(error));
+        });
+
+    } else {
+        alert("댓글 내용을 입력해주세요");
+    }
+
 }

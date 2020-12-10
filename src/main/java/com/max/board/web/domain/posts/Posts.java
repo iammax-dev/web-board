@@ -10,6 +10,7 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Getter
+@Setter
 @NoArgsConstructor // 기본 생성자 자동 추가, public Posts() {} 와 같은 효과
 @Entity // 테이블과 링크될 클래스임을 명시
 public class Posts extends BaseTimeEntity { // 실제 DB의 테이블과 매칭될 클래스

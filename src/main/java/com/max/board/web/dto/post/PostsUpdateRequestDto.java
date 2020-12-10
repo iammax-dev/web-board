@@ -1,4 +1,4 @@
-package com.max.board.web.dto;
+package com.max.board.web.dto.post;
 
 import lombok.Builder;
 import lombok.Getter;

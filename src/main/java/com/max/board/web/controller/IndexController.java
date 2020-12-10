@@ -3,9 +3,10 @@ package com.max.board.web.controller;
 import com.max.board.web.config.auth.LoginUser;
 import com.max.board.web.config.auth.dto.SessionUser;
 import com.max.board.web.domain.posts.Posts;
-import com.max.board.web.dto.PostsListResponseDto;
-import com.max.board.web.dto.PostsResponseDto;
+import com.max.board.web.domain.reply.Reply;
+import com.max.board.web.dto.post.PostsResponseDto;
 import com.max.board.web.service.posts.PostsService;
+import com.max.board.web.service.reply.ReplyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,7 +14,6 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -23,6 +23,7 @@ import java.util.List;
 public class IndexController {
 
     private final PostsService postsService;
+    private final ReplyService replyService;
 //    private final HttpSession  httpSession;
 
     @GetMapping("/")
@@ -41,9 +42,13 @@ public class IndexController {
     }
 
     @GetMapping("/search")
-    public String searchIndex(Model model, @LoginUser SessionUser user, @RequestParam("selectSearch") String selectSearch, @RequestParam("keyword") String keyword) {
+    public String searchIndex(Model model, @LoginUser SessionUser user,@PageableDefault Pageable pageable,  @RequestParam("selectSearch") String selectSearch, @RequestParam("keyword") String keyword) {
         model.addAttribute("memberName", user.getName());
-        model.addAttribute("posts", postsService.findByKeyword(selectSearch, keyword));
+
+        Page<Posts> postList = postsService.findByKeyword(pageable, selectSearch, keyword);
+        model.addAttribute("pageList", postList);
+        model.addAttribute("url", "/search?selectSearch=" + selectSearch + "&keyword=" + keyword);
+        model.addAttribute("posts", postList.getContent());
 
         return "index";
     }
@@ -57,6 +62,8 @@ public class IndexController {
         PostsResponseDto dto = postsService.findById(id);
         model.addAttribute("post", dto);
 
+        List<Reply> replyDto = replyService.findByPostId(id);
+        model.addAttribute("replyList", replyDto);
         return "postsView";
     }
 

@@ -1,11 +1,10 @@
 package com.max.board.web.service.posts;
 
-import com.max.board.web.dto.PostsListResponseDto;
 import com.max.board.web.domain.posts.Posts;
 import com.max.board.web.domain.posts.PostsRepository;
-import com.max.board.web.dto.PostsResponseDto;
-import com.max.board.web.dto.PostsSaveRequestDto;
-import com.max.board.web.dto.PostsUpdateRequestDto;
+import com.max.board.web.dto.post.PostsResponseDto;
+import com.max.board.web.dto.post.PostsSaveRequestDto;
+import com.max.board.web.dto.post.PostsUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -13,9 +12,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor // final 이 선언된모든 필드를 인자값으로 하는 생성자를 대신 생성해줌
 @Service
@@ -30,17 +26,21 @@ public class PostsService {
     }
 
     @Transactional(readOnly = true)
-    public List<PostsListResponseDto> findByKeyword(String selectSearch, String keyword) {
+    public Page<Posts> findByKeyword(Pageable pageable, String selectSearch, String keyword) {
+
+        int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1); // page는 index 처럼 0부터 시작
+        pageable = PageRequest.of(page, 10, new Sort(Sort.Direction.DESC, "id"));
 
         if (selectSearch.equals("title")) {
-            return postsRepository.findByTitleContaining(keyword).stream().map(PostsListResponseDto::new).collect(Collectors.toList());
+            return postsRepository.findByTitleContaining(pageable, keyword);
         } else if (selectSearch.equals("name")) {
-            return postsRepository.findByAuthorContaining(keyword).stream().map(PostsListResponseDto::new).collect(Collectors.toList());
+            return postsRepository.findByAuthorContaining(pageable, keyword);
         } else {
-            return postsRepository.findByContentContaining(keyword).stream().map(PostsListResponseDto::new).collect(Collectors.toList());
+            return postsRepository.findByContentContaining(pageable, keyword);
         }
     }
 
+    // 전체 글 리스트 + 화면 페이지 수
     public Page<Posts> findPageCount(Pageable pageable) {
         int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1); // page는 index 처럼 0부터 시작
         pageable = PageRequest.of(page, 10, new Sort(Sort.Direction.DESC, "id"));

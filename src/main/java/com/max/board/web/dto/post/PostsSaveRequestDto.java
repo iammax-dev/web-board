@@ -1,4 +1,4 @@
-package com.max.board.web.dto;
+package com.max.board.web.dto.post;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.max.board.web.domain.posts.Posts;
