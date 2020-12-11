@@ -1,9 +1,7 @@
 package com.max.board.web.service.reply;
 
-import com.max.board.web.domain.posts.Posts;
 import com.max.board.web.domain.reply.Reply;
 import com.max.board.web.domain.reply.ReplyRepository;
-import com.max.board.web.dto.post.PostsResponseDto;
 import com.max.board.web.dto.reply.ReplyDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,13 +15,16 @@ public class ReplyService {
 
     private final ReplyRepository replyRepository;
 
-    public List<Reply> findByPostId(Long id) {
-        List<Reply> reply = replyRepository.findByPostId(id);
+    public List<Reply> findByPostId(Long post_id) {
+        List<Reply> reply = replyRepository.findByPostId(post_id);
         return reply;
     }
 
     @Transactional
-    public Long save(ReplyDto replySaveDto) {
-        return replyRepository.save(replySaveDto.toEntity()).getReplyId();
+    public Long save(ReplyDto replyDto) {
+        return replyRepository.save(replyDto.toEntity()).getReplyId();
     }
+
+
+
 }

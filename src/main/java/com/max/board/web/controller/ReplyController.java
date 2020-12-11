@@ -13,9 +13,10 @@ public class ReplyController {
 
     private final ReplyService replyService;
 
-    @PostMapping("/reply")
-    public Long save(@RequestBody ReplyDto replySaveDto){
-        return replyService.save(replySaveDto);
+    @PostMapping("/api/reply")
+    public Long save(@RequestBody ReplyDto replyDto){
+        System.out.println("                      >>>>>>>>>>>>>>>>>>>>>>>>>>> ReplyController replyDto : " + replyDto.toString());
+        return replyService.save(replyDto);
     }
 
 }

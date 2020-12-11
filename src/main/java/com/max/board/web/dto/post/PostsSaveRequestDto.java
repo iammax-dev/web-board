@@ -34,4 +34,13 @@ public class PostsSaveRequestDto {
         user.setId(user_id);
     }
 
+    @Override
+    public String toString() {
+        return "PostsSaveRequestDto{" +
+                "user=" + user +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", author='" + author + '\'' +
+                '}';
+    }
 }

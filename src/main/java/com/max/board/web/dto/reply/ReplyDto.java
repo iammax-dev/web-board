@@ -14,7 +14,9 @@ import java.time.LocalDateTime;
 public class ReplyDto {
 
     private Posts posts;
-    private Long post_id;
+    private Long posts_Id;
+    private User user;
+    private Long user_Id;
 
     private Long replyId;
     private String replyAuthor;
@@ -22,24 +24,8 @@ public class ReplyDto {
     private LocalDateTime createDate;
     private LocalDateTime modifiedDate;
 
-    @Builder
-    public ReplyDto(Posts posts, String replyAuthor, String replyContent) {
-        this.posts        = posts;
-        this.replyAuthor  = replyAuthor;
-        this.replyContent = replyContent;
-    }
-
     public Reply toEntity() {
-        return Reply.builder().posts(posts).replyAuthor(replyAuthor).replyContent(replyContent).build();
-    }
-
-    public ReplyDto(Reply entity) {
-        this.replyId      = entity.getReplyId();
-        this.post_id      = entity.getPosts().getId();
-        this.replyAuthor  = entity.getReplyAuthor();
-        this.replyContent = entity.getReplyContent();
-        this.createDate   = entity.getCreateDate();
-        this.modifiedDate = entity.getModifiedDate();
+        return Reply.builder().posts(posts).user(user).replyAuthor(replyAuthor).replyContent(replyContent).build();
     }
 
     @JsonProperty("post_id")
@@ -48,4 +34,22 @@ public class ReplyDto {
         posts.setId(post_id);
     }
 
+    @JsonProperty("user_id")
+    private void unpackNested2(Long user_id) {
+        this.user  = new User();
+        user.setId(user_id);
+    }
+
+    @Override
+    public String toString() {
+        return "ReplyDto{" +
+                "posts=" + posts +
+                ", user=" + user +
+                ", replyId=" + replyId +
+                ", replyAuthor='" + replyAuthor + '\'' +
+                ", replyContent='" + replyContent + '\'' +
+                ", createDate=" + createDate +
+                ", modifiedDate=" + modifiedDate +
+                '}';
+    }
 }

@@ -63,6 +63,7 @@ public class IndexController {
         model.addAttribute("post", dto);
 
         List<Reply> replyDto = replyService.findByPostId(id);
+        System.out.println("                      >>>>>>>>>>>>>>>>>>>>>>>>>>> ReplyController replyDto : " + replyDto.toString());
         model.addAttribute("replyList", replyDto);
         return "postsView";
     }
