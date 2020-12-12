@@ -4,7 +4,7 @@
       layout:decorator="~{layout/layout}">
 <head>
     <meta charset="UTF-8" />
-    <title>Index Page</title>
+    <title>Post View</title>
 </head>
 <body>
 <div class="wrapper">
@@ -56,7 +56,7 @@
                             <span th:text="${list.createDate}">댓글작성일</span>
 
                         <td><span name="rName" th:text="${list.replyAuthor}">댓글작성자</span></td>
-                        <td><span name="rContents" th:text="${list.replyContent}" >댓글내용</span></td>
+                        <td name=rModify><span name="rContents" th:text="${list.replyContent}" >댓글내용</span></td>
                         <td th:if="${list.user.id} == ${userId}" name=appendTd>
                             <button type="button" class="btn btn-outline-info btn-sm" name="replyModify">댓글 수정</button>
                             <button type="button" class="btn btn-outline-danger btn-sm" name="replyDelete">댓글 삭제</button>

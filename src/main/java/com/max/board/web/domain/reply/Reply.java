@@ -41,6 +41,10 @@ public class Reply extends BaseTimeEntity {
         this.replyContent = replyContent;
     }
 
+    public void update(String replyContent) {
+        this.replyContent = replyContent;
+    }
+
     @Override
     public String toString() {
         return "Reply{" +

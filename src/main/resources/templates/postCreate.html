@@ -1,53 +1,49 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="~{layout/layout}">
 <head>
-    <title>스프링 부트 웹서비스</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <!-- bootstrap -->
-    <link rel="stylesheet" href="/js/css/bootstrap.css" >
-    <link rel="stylesheet" href="/js/css/bootstrap.min.css" >
-    <!-- jQuery -->
-    <script src="/js/jquery-3.4.1.min.js"></script>
-    <!-- Naver Smart Editor -->
-    <script src="/js/webEditor/js/service/HuskyEZCreator.js"></script>
-    <!-- create.js 추가 -->
-    <script src="/js/app/create.js"></script>
+    <meta charset="UTF-8" />
+    <title>Post View</title>
 </head>
 <body>
+<div class="wrapper">
+    <div class="contents" layout:fragment="content">
+        <div class="container" style="margin-top: 15px;">
+            <form id="dataForm">
+                <input type="hidden" id="userId" th:value="${userId}">
+                <!-- 작성자 id 있는지 체크 -->
+                <input th:if="${post} == null" type="hidden" id="authorId" value="">
+                <input th:unless="${post} == null" type="hidden" id="authorId" th:value="${post.user_id}">
+                <!-- 글번호 없으면 새글 작성, 있으면 수정 -->
+                <input th:if="${post} == null" type="hidden" id="postId" value="">
+                <input th:unless="${post} == null" type="hidden" id="postId" th:value="${post.id}">
 
-<h1>게시글 등록</h1>
-<div class="form-group container-md">
-    <form id="dataForm">
-        <input type="hidden" id="userId" th:value="${userId}">
-        <!-- 작성자 id 있는지 체크 -->
-        <input th:if="${post} == null" type="hidden" id="authorId" value="">
-        <input th:unless="${post} == null" type="hidden" id="authorId" th:value="${post.user_id}">
-        <!-- 글번호 없으면 새글 작성, 있으면 수정 -->
-        <input th:if="${post} == null" type="hidden" id="postId" value="">
-        <input th:unless="${post} == null" type="hidden" id="postId" th:value="${post.id}">
+                <div class="form-group">
+                    <label class="col-form-label" for="title">제목</label>
+                    <input th:if="${post} == null" type="text" class="form-control" id="title" value="">
+                    <input th:unless="${post} == null" type="text" class="form-control"id="title" th:value="${post.title}">
 
-        <div class="form-group">
-            <label class="col-form-label" for="title">제목</label>
-            <input th:if="${post} == null" type="text" class="form-control" id="title" value="">
-            <input th:unless="${post} == null" type="text" class="form-control"id="title" th:value="${post.title}">
-
-            <label class="col-form-label" for="title">작성자</label>
-            <input th:if="${post} == null" type="text" class="form-control" id="author" th:value="${memberName}" readonly>
-            <input th:unless="${post} == null" type="text" class="form-control" id="author" th:value="${post.author}" readonly>
+                    <label class="col-form-label" for="title">작성자</label>
+                    <input th:if="${post} == null" type="text" class="form-control" id="author" th:value="${memberName}" readonly>
+                    <input th:unless="${post} == null" type="text" class="form-control" id="author" th:value="${post.author}" readonly>
+                </div>
+                <textarea th:if="${post} == null" id="content" rows="15" text=""></textarea>
+                <textarea th:unless="${post} == null" id="content" rows="15" th:text="${post.content}"></textarea>
+                <div align="right">
+                    <button type="button" class="btn btn-outline-success btn-sm" id="btn-save">저장</button>
+                    <button type="button" class="btn btn-outline-success btn-sm" id="btn-update">수정 완료</button>
+                    <button type="button" class="btn btn-outline-secondary btn-sm" id="btn-cancel">취소</button>
+                    <button type="button" class="btn btn-outline-danger btn-sm" id="btn-delete">삭제</button>
+                </div>
+            </form>
         </div>
-        <textarea th:if="${post} == null" id="content" rows="15" text=""></textarea>
-        <textarea th:unless="${post} == null" id="content" rows="15" th:text="${post.content}"></textarea>
-        <div align="right">
-            <button type="button" class="btn btn-outline-success btn-sm" id="btn-save">저장</button>
-            <button type="button" class="btn btn-outline-success btn-sm" id="btn-update">수정 완료</button>
-            <button type="button" class="btn btn-outline-secondary btn-sm" id="btn-cancel">취소</button>
-            <button type="button" class="btn btn-outline-danger btn-sm" id="btn-delete">삭제</button>
-        </div>
-    </form>
-
-
+        <!-- Naver Smart Editor -->
+        <script src="/js/webEditor/js/service/HuskyEZCreator.js"></script>
+        <!-- create.js 추가 -->
+        <script src="/js/app/create.js"></script>
+    </div>
 </div>
-
 
 
 </body>

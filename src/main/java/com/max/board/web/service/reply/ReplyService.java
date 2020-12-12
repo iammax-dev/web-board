@@ -1,7 +1,9 @@
 package com.max.board.web.service.reply;
 
+import com.max.board.web.domain.posts.Posts;
 import com.max.board.web.domain.reply.Reply;
 import com.max.board.web.domain.reply.ReplyRepository;
+import com.max.board.web.dto.post.PostsUpdateRequestDto;
 import com.max.board.web.dto.reply.ReplyDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -25,6 +27,17 @@ public class ReplyService {
         return replyRepository.save(replyDto.toEntity()).getReplyId();
     }
 
+    @Transactional
+    public Long update(Long id, ReplyDto replyDto) {
+        Reply reply = replyRepository.findByReplyId(id);
+        reply.update(replyDto.getReplyContent());
 
+        return id;
+    }
 
+    @Transactional
+    public void delete(Long id) {
+        Reply reply = replyRepository.findByReplyId(id);
+        replyRepository.delete(reply);
+    }
 }

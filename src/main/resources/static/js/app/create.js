@@ -24,6 +24,8 @@ $(document).ready(function(){
         $("#btn-delete").hide();
         $("#btn-save").hide();
         $("#btn-update").hide();
+    } else {
+        $("#btn-save").hide();
     }
 
     // 저장

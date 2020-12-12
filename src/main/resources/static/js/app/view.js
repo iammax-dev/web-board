@@ -35,6 +35,12 @@ $(document).ready(function(){
     $('button[name=replyModify]').click(function() {
         fn_replyModify();
     });
+
+    // 댓글 삭제
+    $("button[name=replyDelete]").click(function() {
+        fn_replyDelete();
+    });
+
 });
 
 function fn_delete() {
@@ -92,10 +98,10 @@ function fn_replySubmit() {
 }
 
 function fn_replyModify() {
-
-	$(event.target).closest('tr').find("input[name='rContents']").attr("readonly", false);
-	$(event.target).closest('tr').find("input[name='rContents']").addClass("form-control");
-	$(event.target).closest('tr').find("input[name='rContents']").focus();
+    $(event.target).closest('tr').find("span[name='rContents']").remove();
+    $(event.target).closest('tr').find("span[name='rContents']").append()
+    $(event.target).closest('tr').find("td[name='rModify']").prepend('<input type="text" name="rModifyContents" id="replyContents" class="form-control form-control-sm col-sm-8" th:value="${list.replyContent}">')
+	$(event.target).closest('tr').find("input[name='rModifyContents']").focus();
 
 	$(event.target).closest('tr').find("td[name='appendTd']").prepend("<button type='button' class='btn btn-outline-success btn-sm' id='modifyComplete' onclick=fn_replyModifyComplete()>수정 완료</button>")
 	$(event.target).closest('tr').find("button[name='replyModify']").remove();
@@ -104,28 +110,28 @@ function fn_replyModify() {
 
 function fn_replyModifyComplete() {
 
-	var ridx = $(event.target).closest('tr').find("input[name='ridx']").val();
-	var rName = $(event.target).closest('tr').find("input[name='rName']").val();
-	var rContent = $(event.target).closest('tr').find("input[name='rContents']").val();
+    var replyId             = $(event.target).closest('tr').find("input[name='ridx']").val();
+    var replyModifyContents = $(event.target).closest('tr').find("input[name='rModifyContents']").val();
 
     var data = {
-        post_id      : $("#postId").val(),
-        replyId      : ridx,
-        replyAuthor  : rName,
-        replyContent : rContent
+        id      : parseInt(replyId),
+        replyContent : replyModifyContents
     };
+
 console.log(data)
+
 	$.ajax({
-        url: '/updateReply',
-        type: 'POST',
-        data: oPostDt,
-        contentType: 'application/json; charset=UTF-8',
+	    type        : 'PUT',
+        url         : '/api/reply/' + replyId,
+        data        : JSON.stringify(data),
+        contentType : 'application/json; charset=UTF-8',
         success: function () {
-        	alert("수정 되었습니다.");
+        	alert("댓글이 수정 되었습니다.");
         	location.reload();
         },
         error: function (resultMap) {
             alert("error " );
+            console.log(JSON.stringify(error));
         }
     });
 
@@ -133,31 +139,31 @@ console.log(data)
 
 function fn_replyDelete() {
 
-	var ridx = $(event.target).closest('tr').find("input[name='ridx']").val();
-	console.log(ridx)
+	var replyId = $(event.target).closest('tr').find("input[name='ridx']").val();
+
+console.log(replyId)
 
 	var bDelete = confirm("삭제하시겠습니까?");
 	if (bDelete) {
 
-		var oParam = {};
-		oParam["idx"]       = $("#dataForm #idx").val();
-		oParam["ridx"]      = ridx;
-
-	    var oPostDt = JSON.stringify(oParam);
+        var data = {
+            id      : parseInt(replyId)
+        };
 
 		$.ajax({
-	        url: '/deleteReply',
-	        type: 'POST',
-	        data: oPostDt,
-	        contentType: 'application/json; charset=UTF-8',
-	        success: function () {
-	        	alert("삭제 되었습니다.");
-	        	location.reload();
-	        },
-	        error: function (resultMap) {
-	            alert("error " );
-	        }
-	    });
+            type        : 'DELETE',
+            url         : '/api/reply/' + replyId,
+            data        : JSON.stringify(data),
+            contentType : 'application/json; charset=UTF-8',
+            success: function () {
+                alert("댓글이 삭제 되었습니다.");
+                location.reload();
+            },
+            error: function (resultMap) {
+                alert("error " );
+                console.log(JSON.stringify(error));
+            }
+        });
 
 	}
 
